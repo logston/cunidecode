@@ -1,6 +1,7 @@
 #!/usr/bin/python
 
-from distutils.core import Command, setup
+from distutils.core import Command
+from setuptools import setup, Extension
 from sys import version_info
 import unittest
 
@@ -31,13 +32,15 @@ class TestCommand(Command):
 
 		result = unittest.TextTestRunner(verbosity=2).run(suite)
 
-setup(name='Unidecode',
-      version='0.04.16',
+setup(name='cUnidecode',
+      version='0.0.1',
       description='ASCII transliterations of Unicode text',
       license='GPL',
       long_description=open("README").read(),
-      author='Tomaz Solc',
-      author_email='tomaz.solc@tablix.org',
+      author='Paul Logston',
+      author_email='code@logston.me',
+
+      ext_modules=[Extension('cUnidecode', ['cunidecode.c'])],
 
       packages = [ 'unidecode' ],
 
