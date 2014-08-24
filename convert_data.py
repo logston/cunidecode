@@ -38,7 +38,7 @@ def convert_data():
         if v is None:
             data_dict[k] = ['' for _ in xrange(256)]
 
-    for i in xrange(128):
+    for i in xrange(32, 128):
         data_dict[0][i] = chr(i)
 
     with open(os.path.join(CUR_DIR, 'data.h'), 'w') as s:

@@ -1,6 +1,9 @@
 #include <Python.h>
 #include "data.h"
 
+
+
+
 static PyObject *unidecode_unidecode( PyObject *self, PyObject *args ) {
     Py_UNICODE *string;
     int string_size;
@@ -14,6 +17,8 @@ static PyObject *unidecode_unidecode( PyObject *self, PyObject *args ) {
         c = string[i];
         section = c >> 8;
         position = c % 256;
+
+        char* s = data[section][position];
     }
 
     return Py_BuildValue("(si)", string, string_size);
