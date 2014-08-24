@@ -1,0 +1,13 @@
+ChangeLog
+LICENSE
+MANIFEST.in
+README
+setup.py
+unidecode.c
+tests/__init__.py
+tests/test_basic_2.py
+tests/test_basic_3.py
+unidecode.egg-info/PKG-INFO
+unidecode.egg-info/SOURCES.txt
+unidecode.egg-info/dependency_links.txt
+unidecode.egg-info/top_level.txt
