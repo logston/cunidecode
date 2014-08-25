@@ -1,25 +1,56 @@
+#include <stdio.h>
+#include <string.h>
 #include <Python.h>
 #include "data.h"
+
+
+static int get_string_size(char *string) {
+    int size = 0;
+    while (string[size]) {
+        size++;
+    }
+    return size;
+}
+
+
+static char *append(char *str_head, char *str_tail) {
+    int head_size = get_string_size(str_head);
+    int tail_size = get_string_size(str_tail);
+    int total_size = head_size + tail_size;
+    
+    char *ret_string = (char *)malloc(sizeof(char) * (total_size));
+
+    memcpy((void *)ret_string, (void *)str_head, head_size);
+    memcpy((void *)(ret_string + head_size), (void *)str_tail, tail_size);
+
+    free(str_head);
+
+    return ret_string;
+}
 
 
 static PyObject *cunidecode_unidecode( PyObject *self, PyObject *args ) {
     Py_UNICODE *string;
     int string_size;
-
     if (!PyArg_ParseTuple(args, "u#", &string, &string_size)) {
       return NULL;
     } 
 
-    int c, section, position;
+    char *temp_string;
+    // Build an initial buffer the size of the unicode string.
+    char *ret_string = (char *)malloc(sizeof(char) * string_size);
+    int unichar, section, position;
     for (int i=0; i < string_size; i++) {
-        c = string[i];
-        section = c >> 8;
-        position = c % 256;
+        unichar = string[i];
+        section = unichar >> 8;
+        position = unichar % 256;
 
-        char* s = data[section][position];
+        temp_string = data[section][position];
+
+        ret_string = append(ret_string, temp_string);
     }
 
-    return Py_BuildValue("(si)", string, string_size);
+    return Py_BuildValue("s", ret_string);
 }
 
 

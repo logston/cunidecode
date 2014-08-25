@@ -20,34 +20,9 @@ if not hasattr(unittest, 'skipIf'):
 class TestUnidecode(unittest.TestCase):
 	def test_ascii(self):
 
-		log = []
-		def showwarning_new(message, category, *args):
-			if ("not an unicode object" in str(message)) and \
-					(category is RuntimeWarning):
-				log.append((message, category))
-			else:
-				showwarning_old(message, category, *args)
-
-		showwarning_old = warnings.showwarning
-		warnings.showwarning = showwarning_new
-		warnings.filterwarnings("always")
-
-		for n in xrange(0,128):
-			t = chr(n)
-			self.assertEqual(unidecode(t), t)
-
-		# Passing string objects to unidecode should raise a warning
-		self.assertEqual(128, len(log))
-		log = []
-
-		for n in xrange(0,128):
+		for n in xrange(32,128):
 			t = unichr(n)
 			self.assertEqual(unidecode(t), t)
-
-		# unicode objects shouldn't raise warnings
-		self.assertEqual(0, len(log))
-
-		warnings.showwarning = showwarning_old
 
 	def test_bmp(self):
 		for n in xrange(0,0x10000):
