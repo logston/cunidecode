@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import unittest
 import sys
-from unidecode import unidecode
+from cunidecode import unidecode
 import warnings
 
 # workaround for Python < 2.7
