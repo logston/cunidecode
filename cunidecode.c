@@ -39,12 +39,15 @@ static PyObject *cunidecode_unidecode( PyObject *self, PyObject *args ) {
 
     char *temp_string;
     // Build an initial buffer the size of the unicode string.
-    char *ret_string = (char *)malloc(sizeof(char) * string_size);
-    // Empty string
+    char *ret_string = (char *)malloc(sizeof(char));
+    if (ret_string == 0) {
+      EXIT_FAILURE;
+    }
+      
     ret_string[0] = '\0';
 
-    int unichar, section, position;
-    for (int i=0; i < string_size; i++) {
+    int i, unichar, section, position;
+    for (i = 0; i < string_size; i++) {
         unichar = string[i];
         section = unichar >> 8;
         position = unichar % 256;

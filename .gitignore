@@ -1,10 +1,10 @@
 build
 dist
 MANIFEST
-*.pyc
+.idea/
+*.py[c|o]
 *~
 *.bak
-.*
 tools/NamesList.txt
 *.so
 *.egg-info
