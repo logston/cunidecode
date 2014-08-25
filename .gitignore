@@ -7,3 +7,4 @@ MANIFEST
 .*
 tools/NamesList.txt
 *.so
+*.egg-info
