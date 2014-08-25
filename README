@@ -1,11 +1,11 @@
-Unidecode, lossy ASCII transliterations of Unicode text
+cUnidecode, lossy ASCII transliterations of Unicode text
 =======================================================
 
 It often happens that you have text data in Unicode, but you need to
 represent it in ASCII. For example when integrating with legacy code that
 doesn't support Unicode, or for ease of entry of non-Roman names on a US
 keyboard, or when constructing ASCII machine identifiers from
-human-readable Unicode strings that should still be somewhat intelligeble
+human-readable Unicode strings that should still be somewhat intelligible
 (a popular example of this is when making an URL slug from an article
 title). 
 
@@ -35,18 +35,19 @@ built-in functions). It is based on hand-tuned character mappings that for
 example also contain ASCII approximations for symbols and non-Latin
 alphabets.
 
-This is a Python port of Text::Unidecode Perl module by
-Sean M. Burke <sburke@cpan.org>.
+This is a C port of Unidecode by Tomaz Solc <tomaz.solc@tablix.org>.
+
+Unidecode (by Tomaz Solc) is a Python port of the Text::Unidecode Perl module by
+Sean M. Burke <sburke@cpan.org> and later
 
 
 Module content
 --------------
 
 The module exports a single function that takes an Unicode object (Python
-2.x) or string (Python 3.x) and returns a string (that can be encoded to
-ASCII bytes in Python 3.x)::
+2.7) and returns a string::
 
-    >>> from unidecode import unidecode
+    >>> from cunidecode import unidecode
     >>> unidecode(u'ko\u017eu\u0161\u010dek')
     'kozuscek'
     >>> unidecode(u'30 \U0001d5c4\U0001d5c6/\U0001d5c1')
@@ -58,11 +59,14 @@ ASCII bytes in Python 3.x)::
 Requirements
 ------------
 
-Nothing except Python itself.
-    
-You will need a Python build with "wide" Unicode characters in order for
-unidecode to work correctly with characters outside of Basic Multilingual
-Plane. Surrogate pair encoding of "narrow" builds is not supported.
+Python 2.7 and a C compiler/linker.
+   
+This implementation of unidecode does not "decode" characters outside
+of the Basic Multilingual Plane.
+A Python build with "wide" Unicode characters may lead to a segmentation
+fault if an attempt to decode a character outside the BMP is made.
+
+Surrogate pair encoding of "narrow" builds is not supported.
 
 
 Installation
@@ -78,9 +82,9 @@ these commands::
 Source
 ------
 
-You can get the latest development version of Unidecode with::
+You can get the latest development version of cUnidecode with::
 
-    git clone http://www.tablix.org/~avian/git/unidecode.git
+    git clone git@github.com:logston/cunidecode.git
 
 
 Support
@@ -88,6 +92,9 @@ Support
 
 Questions, bug reports, useful code bits, and suggestions for Unidecode
 should be sent to tomaz.solc@tablix.org
+
+Questions, bug reports, useful code bits, and suggestions for cUnidecode
+should be sent to code@logston.me
 
 
 Copyright
@@ -97,9 +104,13 @@ Original character transliteration tables:
 
 Copyright 2001, Sean M. Burke <sburke@cpan.org>, all rights reserved.
 
-Python code and later additions:
+Python code and later additions to Unidecode:
 
 Copyright 2014, Tomaz Solc <tomaz.solc@tablix.org>
+
+C code and later additions to cUnidecode:
+
+Copyright 2014, Paul Logston <code@logston.me>
 
 This program is free software; you can redistribute it and/or modify it
 under the terms of the GNU General Public License as published by the Free
@@ -118,5 +129,3 @@ documentation in this dist are distributed in the hope that they will be
 useful, but without any warranty; without even the implied warranty of
 merchantability or fitness for a particular purpose.
 
-..
-    vim: set filetype=rst:
