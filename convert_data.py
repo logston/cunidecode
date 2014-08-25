@@ -8,11 +8,15 @@ DATA_DIR = os.path.join(CUR_DIR, 'data')
 
 
 def escape(string):
+
     if '\\' in string:
         string = string.replace('\\', '\\\\')
 
     if '\n' in string:
         string = string.replace('\n', '\\\n')
+
+    if '\r' in string:
+        string = string.replace('\r', '\\\r')
         
     if '"' in string:
         string = string.replace('"', '\\"')
@@ -36,7 +40,11 @@ def convert_data():
 
     for k, v in data_dict.items():
         if v is None:
-            data_dict[k] = ['' for _ in xrange(256)]
+            data_dict[k] = ['' for _ in xrange(256)
+
+    # Only transliterate two characters below ASCII code point 32
+    data_dict[0][10] = '\n'
+    data_dict[0][13] = '\r'
 
     for i in xrange(32, 128):
         data_dict[0][i] = chr(i)
@@ -47,9 +55,16 @@ def convert_data():
         for strings in data_dict.values():
             s.write('\t{\n')
 
-            s.write(
-                '\n'.join('\t\t"%s",' % escape(string) for string in strings)
-            )
+            string_list = []
+            for string in strings:
+                if string == '\n':  # Treat \n as a special case
+                    string_list.append('\t\t"\\n"')
+                elif string == '\r':  # Treat \r as a special case
+                    string_list.append('\t\t"\\r"')
+                else:
+                    string_list.append('\t\t"%s",' % escape(string))
+
+            s.write('\n'.join(string_list))
 
             s.write('\n\t},\n')
 

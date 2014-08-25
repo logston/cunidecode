@@ -6,7 +6,7 @@
 
 static int get_string_size(char *string) {
     int size = 0;
-    while (string[size]) {
+    while (string[size] != 0) {
         size++;
     }
     return size;
@@ -18,10 +18,11 @@ static char *append(char *str_head, char *str_tail) {
     int tail_size = get_string_size(str_tail);
     int total_size = head_size + tail_size;
     
-    char *ret_string = (char *)malloc(sizeof(char) * (total_size));
+    char *ret_string = (char *)malloc(sizeof(char) * (total_size + 1));
 
-    memcpy((void *)ret_string, (void *)str_head, head_size);
-    memcpy((void *)(ret_string + head_size), (void *)str_tail, tail_size);
+    strncpy(ret_string, str_head, head_size);
+    strncpy((ret_string + head_size), str_tail, tail_size);
+    ret_string[total_size] = '\0';
 
     free(str_head);
 
@@ -39,6 +40,9 @@ static PyObject *cunidecode_unidecode( PyObject *self, PyObject *args ) {
     char *temp_string;
     // Build an initial buffer the size of the unicode string.
     char *ret_string = (char *)malloc(sizeof(char) * string_size);
+    // Empty string
+    ret_string[0] = '\0';
+
     int unichar, section, position;
     for (int i=0; i < string_size; i++) {
         unichar = string[i];
@@ -50,7 +54,11 @@ static PyObject *cunidecode_unidecode( PyObject *self, PyObject *args ) {
         ret_string = append(ret_string, temp_string);
     }
 
-    return Py_BuildValue("s", ret_string);
+    PyObject* ret_val = Py_BuildValue("s", ret_string);
+
+    free(ret_string);
+
+    return ret_val;
 }
 
 
