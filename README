@@ -35,7 +35,7 @@ built-in functions). It is based on hand-tuned character mappings that for
 example also contain ASCII approximations for symbols and non-Latin
 alphabets.
 
-This is a C port of Unidecode by Tomaz Solc <tomaz.solc@tablix.org>.
+This is a C port of Unidecode by Paul Logston <code@logston.me>
 
 Unidecode (by Tomaz Solc) is a Python port of the Text::Unidecode Perl module by
 Sean M. Burke <sburke@cpan.org> and later
