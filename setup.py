@@ -8,7 +8,7 @@ setup(
     version='0.0.1',
     description='ASCII transliterations of Unicode text',
     license='GPL',
-    long_description=open("README").read(),
+    long_description=open("README.rst").read(),
     author='Paul Logston',
     author_email='code@logston.me',
 

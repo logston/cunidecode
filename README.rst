@@ -1,5 +1,10 @@
-cUnidecode, lossy ASCII transliterations of Unicode text
-=======================================================
+cUnidecode
+==========
+lossy ASCII transliterations of Unicode text
+--------------------------------------------
+
+.. image:: https://travis-ci.org/logston/cunidecode.svg?branch=master
+    :target: https://travis-ci.org/logston/cunidecode
 
 It often happens that you have text data in Unicode, but you need to
 represent it in ASCII. For example when integrating with legacy code that
@@ -45,7 +50,7 @@ Module content
 --------------
 
 The module exports a single function that takes an Unicode object (Python
-2.7) and returns a string::
+2.x) and returns a string::
 
     >>> from cunidecode import unidecode
     >>> unidecode(u'ko\u017eu\u0161\u010dek')
@@ -59,7 +64,7 @@ The module exports a single function that takes an Unicode object (Python
 Requirements
 ------------
 
-Python 2.7 and a C compiler/linker.
+Python 2.x >= 2.6 and a C compiler/linker.
    
 This implementation of unidecode does not "decode" characters outside
 of the Basic Multilingual Plane.
