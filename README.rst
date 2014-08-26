@@ -1,7 +1,10 @@
-cUnidecode, lossy ASCII transliterations of Unicode text
-=======================================================
+cUnidecode
+==========
+lossy ASCII transliterations of Unicode text
+--------------------------------------------
 
-[![Build Status](https://travis-ci.org/logston/cunidecode.svg?branch=master)](https://travis-ci.org/logston/cunidecode)
+.. image:: https://travis-ci.org/logston/cunidecode.svg?branch=master
+    :target: https://travis-ci.org/logston/cunidecode
 
 It often happens that you have text data in Unicode, but you need to
 represent it in ASCII. For example when integrating with legacy code that
