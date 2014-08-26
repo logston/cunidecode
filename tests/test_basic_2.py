@@ -10,7 +10,7 @@ if not hasattr(unittest, 'skipIf'):
         def d(f):
             def df(*args):
                 if condition:
-                    print "skipped %r" % (reason,)
+                    print ("skipped %r" % (reason,))
                 else:
                     return f(*args)
             return df
@@ -24,14 +24,14 @@ class TestUnidecode(unittest.TestCase):
             self.assertEqual(unidecode(t), t)
 
     def test_bmp(self):
-        for n in xrange(0, 0x10000):
+        for n in range(0, 0x10000):
             # Just check that it doesn't throw an exception
             t = unichr(n)
             unidecode(t)
 
     def test_circled_latin(self):
         # 1 sequence of a-z
-        for n in xrange(0, 26):
+        for n in range(0, 26):
             a = chr(ord('a') + n)
             b = unidecode(unichr(0x24d0 + n))
 
