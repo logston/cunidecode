@@ -6,7 +6,7 @@
 
 static int get_string_size(char *string) {
     int size = 0;
-    while (string[size] != 0) {
+    while (string[size] != '\0') {
         size++;
     }
     return size;
@@ -17,7 +17,7 @@ static char *append(char *str_head, char *str_tail) {
     int head_size = get_string_size(str_head);
     int tail_size = get_string_size(str_tail);
     int total_size = head_size + tail_size;
-    
+
     char *ret_string = (char *)malloc(sizeof(char) * (total_size + 1));
 
     strncpy(ret_string, str_head, head_size);

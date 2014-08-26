@@ -17,7 +17,7 @@ def escape(string):
 
     if '\r' in string:
         string = string.replace('\r', '\\\r')
-        
+
     if '"' in string:
         string = string.replace('"', '\\"')
 
@@ -40,7 +40,7 @@ def convert_data():
 
     for k, v in data_dict.items():
         if v is None:
-            data_dict[k] = ['' for _ in xrange(256)
+            data_dict[k] = ['' for _ in xrange(256)]
 
     # Only transliterate two characters below ASCII code point 32
     data_dict[0][10] = '\n'
@@ -56,13 +56,15 @@ def convert_data():
             s.write('\t{\n')
 
             string_list = []
-            for string in strings:
+            for i, string in enumerate(strings):
                 if string == '\n':  # Treat \n as a special case
-                    string_list.append('\t\t"\\n"')
+                    string_list.append('\t\t"\\n",')
                 elif string == '\r':  # Treat \r as a special case
-                    string_list.append('\t\t"\\r"')
+                    string_list.append('\t\t"\\r",')
                 else:
-                    string_list.append('\t\t"%s",' % escape(string))
+                    string_list.append(
+                        '\t\t"%s"%s' % (escape(string), '' if i == 255 else ',')
+                    )
 
             s.write('\n'.join(string_list))
 

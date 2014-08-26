@@ -24,7 +24,7 @@ class TestUnidecode(unittest.TestCase):
             self.assertEqual(unidecode(t), t)
 
     def test_bmp(self):
-        for n in xrange(0,0x10000):
+        for n in xrange(0, 0x10000):
             # Just check that it doesn't throw an exception
             t = unichr(n)
             unidecode(t)
