@@ -5,14 +5,14 @@ from setuptools import setup, Extension
 
 setup(
     name='cunidecode',
-    version='0.0.1',
+    version='0.0.2',
     description='ASCII transliterations of Unicode text',
     license='GPL',
     long_description=open("README.rst").read(),
     author='Paul Logston',
     author_email='code@logston.me',
     url = 'https://github.com/logston/cunidecode',
-    download_url = 'https://github.com/logston/cunidecode/tarball/0.0.1',
+    download_url = 'https://github.com/logston/cunidecode/tarball/0.0.2',
     ext_modules=[Extension('cunidecode', ['cunidecode.c'])],
     provides = [ 'cunidecode' ],
     test_suite='tests',

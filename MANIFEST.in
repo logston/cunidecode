@@ -1,3 +1,4 @@
 include ChangeLog
 include LICENSE
+include data.h
 recursive-include tests *.py
