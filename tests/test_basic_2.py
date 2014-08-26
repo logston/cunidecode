@@ -37,35 +37,6 @@ class TestUnidecode(unittest.TestCase):
 
             self.assertEqual(b, a)
 
-    @unittest.skipIf(sys.maxunicode < 0x10000, "narrow build")
-    def test_mathematical_latin(self):
-        # 13 consecutive sequences of A-Z, a-z with some codepoints
-        # undefined. We just count the undefined ones and don't check
-        # positions.
-        empty = 0
-        for n in xrange(0x1d400, 0x1d6a4):
-            if n % 52 < 26:
-                a = chr(ord('A') + n % 26)
-            else:
-                a = chr(ord('a') + n % 26)
-            b = unidecode(unichr(n))
-
-            if not b:
-                empty += 1
-            else:
-                self.assertEqual(b, a)
-
-        self.assertEqual(empty, 24)
-
-    @unittest.skipIf(sys.maxunicode < 0x10000, "narrow build")
-    def test_mathematical_digits(self):
-        # 5 consecutive sequences of 0-9
-        for n in xrange(0x1d7ce, 0x1d800):
-            a = chr(ord('0') + (n-0x1d7ce) % 10)
-            b = unidecode(unichr(n))
-
-            self.assertEqual(b, a)
-
     def test_specific(self):
 
         TESTS = [
@@ -114,24 +85,6 @@ class TestUnidecode(unittest.TestCase):
                 # Table that has less than 256 entriees
                 (u'\u1eff',
                 ''),
-            ]
-
-        for input, correct_output in TESTS:
-            test_output = unidecode(input)
-            self.assertEqual(test_output, correct_output)
-            self.assertTrue(isinstance(test_output, str))
-
-    @unittest.skipIf(sys.maxunicode < 0x10000, "narrow build")
-    def test_specific_wide(self):
-
-        TESTS = [
-                # Non-BMP character
-                (u'\U0001d5a0',
-                'A'),
-
-                # Mathematical
-                (u'\U0001d5c4\U0001d5c6/\U0001d5c1',
-                'km/h'),
             ]
 
         for input, correct_output in TESTS:

@@ -13,7 +13,7 @@ static int get_string_size(char *string) {
 }
 
 
-static char *append(char *str_head, char *str_tail) {
+static char *append(char *str_head, char *str_tail) { 
     int head_size = get_string_size(str_head);
     int tail_size = get_string_size(str_tail);
     int total_size = head_size + tail_size;
@@ -49,10 +49,15 @@ static PyObject *cunidecode_unidecode( PyObject *self, PyObject *args ) {
     int i, unichar, section, position;
     for (i = 0; i < string_size; i++) {
         unichar = string[i];
-        section = unichar >> 8;
-        position = unichar % 256;
 
-        temp_string = data[section][position];
+        // Only support the Basic Multilingual Plane
+        if (unichar < 65536) {
+            section = unichar >> 8;
+            position = unichar % 256;
+            temp_string = data[section][position];
+        } else {
+            temp_string = "";
+        }
 
         ret_string = append(ret_string, temp_string);
     }
